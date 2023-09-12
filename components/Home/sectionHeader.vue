@@ -1,0 +1,25 @@
+<script lang="ts" setup>
+interface ISectionHeaderProps {
+  title: string
+  buttonUrl: string
+}
+
+defineProps<ISectionHeaderProps>();
+</script>
+
+
+<template>
+  <div class="flex justify-between items-center mb-8">
+    <div class="flex items-center gap-3">
+      <h2 class="text-gray-900 text-2xl font-semibold">{{ title }}</h2>
+      <slot name="timer"></slot>
+    </div>
+    <slot name="button">
+      <router-link :to="buttonUrl"
+        class="flex gap-3 text-primary-700 hover:text-primary-800 transition-colors text-lg font-semibold">
+        <span>View All</span>
+        <Icon name="tabler:arrow-right" />
+      </router-link>
+    </slot>
+  </div>
+</template>
