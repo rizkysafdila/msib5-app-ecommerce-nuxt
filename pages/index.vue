@@ -1,144 +1,18 @@
 <script lang="ts" setup>
+const productStore = useProductStore()
 
-// const productStore = useProductStore()
-
-// // change to SSR
-// const { data: products } = await useAsyncData('product', () => productStore.fetchProducts())
-// console.log(products)
-
-const products: IProduct[] = [
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "shoes",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-  {
-    label: "Label",
-    title: "UX Review Presentations",
-    price: 40000,
-    discountPercentage: 10,
-    stock: 450,
-    fileName: "bottle",
-  },
-]
+await productStore.fetchProducts()
 </script>
-
 
 <template>
   <div>
     <HomeHero />
     <HomeCategories />
-    <HomeFlashSale :products="products" />
-    <HomeLatestProduct :products="products" />
+    <HomeFlashSale :products="productStore.products" />
+    <HomeLatestProduct :products="productStore.products" />
     <HomePromo />
-    <HomeLatestProduct :products="products" />
+    <HomeLatestProduct :products="productStore.products" />
+    <HomeForYou :products="productStore.products" />
     <HomeNewsletter />
   </div>
 </template>

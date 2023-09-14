@@ -1,24 +1,37 @@
-// export const useProductStore = defineStore('product', {
-//   state: (): {
-//     products: IProduct[]
-//     isLoading: boolean
-//   } => ({
-//     products: [],
-//     isLoading: false
-//   }),
-//   getters: {},
-//   actions: {
-//     async fetchProducts() {
-//       try {
-//         const response = await useFetch('https://dummyjson.com/products')
-//         if (response.status) {
-//           this.products = await response.json()
-//         } else {
-//           console.error('Failed to fetch products:', response.error)
-//         }
-//       } catch (error) {
-//         console.error('Error fetching products:', error)
-//       }
-//     }
-//   }
-// })
+export const useProductStore = defineStore('product', {
+  state: (): {
+    products: IProduct[]
+    product: IProduct
+    isLoading: boolean
+  } => ({
+    products: [],
+    product: {},
+    isLoading: false
+  }),
+  getters: {},
+  actions: {
+    async fetchProducts() {
+      this.isLoading = true
+      try {
+        const { data } = await useNuxtApp().$axios.get('/products')
+        this.products = data
+      } catch (err) {
+        Promise.reject(err)
+      } finally {
+        this.isLoading = false
+      }
+    },
+
+    async getSingleProduct(id: number): Promise<IProduct> {
+      this.isLoading = true
+      try {
+        const { data } = await useNuxtApp().$axios.get(`/products/${id}`)
+        this.product = data
+      } catch (err) {
+        Promise.reject(err)
+      } finally {
+        this.isLoading = false
+      }
+    }
+  }
+})
