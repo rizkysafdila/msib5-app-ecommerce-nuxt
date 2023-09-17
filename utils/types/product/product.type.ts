@@ -10,3 +10,22 @@ export interface IProduct {
     count: number
   }
 }
+
+export interface ICart {
+  id: number
+  userId: number
+  date: Date
+  products: IBaseCartProduct[]
+}
+
+export interface IBaseCartProduct {
+  productId: number
+  quantity: number
+}
+
+export interface ICartProduct extends IBaseCartProduct {
+  title: string
+  image: string
+  price: number
+  totalPrice: number
+}

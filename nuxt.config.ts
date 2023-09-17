@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    '@nuxt/image'
+    '@nuxt/image',
+    'nuxt-headlessui'
     // '@nuxtjs/eslint-module'
   ],
   app: {

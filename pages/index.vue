@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 const productStore = useProductStore()
+const cartStore = useCartStore()
 
 await productStore.fetchProducts()
+await cartStore.getAllCarts()
 </script>
 
 <template>

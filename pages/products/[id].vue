@@ -1,11 +1,31 @@
 <script lang="ts" setup>
-const { id } = useRoute().params
-const idd = +id
+const { id: empId } = useRoute().params
+const id = +empId
 
 const productStore = useProductStore()
+const cartStore = useCartStore()
 
-await productStore.getSingleProduct(idd)
-const product = ref<IProduct>(productStore.product)
+// await productStore.fetchProducts()
+// await cartStore.getAllCarts()
+
+await productStore.getSingleProduct(id)
+const product = productStore.product
+
+const quantity = ref<number>(1)
+
+const increment = (): void => {
+  quantity.value += 1
+}
+
+const decrement = (): void => {
+  if (quantity.value > 1) {
+    quantity.value -= 1
+  }
+}
+
+const addToCart = () => {
+  cartStore.addToCart(product.id, quantity.value)
+}
 </script>
 
 <template>
@@ -27,6 +47,7 @@ const product = ref<IProduct>(productStore.product)
           Product Detail
         </h1>
         <button
+          @click="addToCart"
           class="text-white text-sm font-semibold flex justify-center items-center gap-2 px-4 py-3 bg-primary-600 hover:bg-primary-700 transition-colors duration-200 border border-primary-600 rounded-lg shadow-sm"
         >
           <Icon name="tabler:plus" size="20" />
@@ -124,22 +145,19 @@ const product = ref<IProduct>(productStore.product)
           <div>
             <h4 class="text-gray-500 font-medium mb-2">Quantity</h4>
             <div class="flex gap-4">
-              <button
-                class="text-white font-semibold flex justify-center items-center p-2 w-14 h-14 bg-primary-600 hover:bg-primary-700 transition-colors duration-200 border border-primary-600 disabled:bg-gray-200 disabled:border-gray-200 rounded-lg shadow-sm"
-                disabled
-              >
-                <Icon name="tabler:minus" size="24" />
-              </button>
-              <input
-                type="text"
-                class="text-gray-900 text-xl text-center font-semibold flex justify-center items-center p-2 w-14 h-14 bg-white border border-gray-300 rounded-lg shadow-sm outline-none"
-                value="1"
+              <ProductCounterButton
+                icon="tabler:minus"
+                @count="decrement"
+                :disabled="quantity <= 1"
               />
-              <button
-                class="text-white font-semibold flex justify-center items-center p-2 w-14 h-14 bg-primary-600 hover:bg-primary-700 transition-colors duration-200 border border-primary-600 rounded-lg shadow-sm"
-              >
-                <Icon name="tabler:plus" size="24" />
-              </button>
+              <input
+                type="number"
+                inputmode="numeric"
+                min="1"
+                class="text-gray-900 text-xl text-center font-semibold flex justify-center items-center p-2 w-14 h-14 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-primary-600"
+                v-model="quantity"
+              />
+              <ProductCounterButton icon="tabler:plus" @count="increment" />
             </div>
           </div>
           <div>

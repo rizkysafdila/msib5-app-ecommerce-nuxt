@@ -22,16 +22,19 @@ export const useProductStore = defineStore('product', {
       }
     },
 
-    async getSingleProduct(id: number): Promise<IProduct> {
+    async getSingleProduct(id: number): Promise<void> {
       this.isLoading = true
       try {
         const { data } = await useNuxtApp().$axios.get(`/products/${id}`)
         this.product = data
+        this.products = [] // empty state when get single product
       } catch (err) {
         Promise.reject(err)
       } finally {
         this.isLoading = false
       }
-    }
+    },
+
+    async searchProducts(query: string): Promise<void> {}
   }
 })
