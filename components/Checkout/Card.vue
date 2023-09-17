@@ -13,15 +13,17 @@ const cartStore = useCartStore()
     <div class="w-full flex flex-col gap-6 md:w-7/12">
       <div
         class="group w-full flex flex-wrap items-center p-2 bg-white hover:bg-gray-100 transition-colors duration-300 border border-gray-200 rounded-xl"
-        v-for="item in products">
+        v-for="item in products" :key="item.id">
         <div
           class="flex w-full h-40 md:w-2/5 p-2 justify-center items-center lg:px-16 bg-gray-100 group-hover:bg-white transition-colors duration-300 rounded-lg">
-          <NuxtImg :src="item.image" class="h-full object-cover" :alt="item.title" />
+          <NuxtImg @click="router.push(`/products/${item.id}`)" :src="item.image"
+            class="h-full object-cover cursor-pointer" :alt="item.title" />
         </div>
         <div class="flex flex-col justify-between w-full md:w-3/5 h-fit md:h-full p-3">
           <div>
             <div class="flex flex-wrap justify-between items-center">
-              <h2 class="text-gray-900 font-normal max-w-[280px]">
+              <h2 class="text-gray-900 font-normal max-w-[280px] cursor-pointer"
+                @click="router.push(`/products/${item.id}`)">
                 {{ item.title }}
               </h2>
               <h3 class="text-gray-900 text-right text-lg md:text-xl font-semibold">

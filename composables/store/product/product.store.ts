@@ -27,7 +27,6 @@ export const useProductStore = defineStore('product', {
       try {
         const { data } = await useNuxtApp().$axios.get(`/products/${id}`)
         this.product = data
-        this.products = [] // empty state when get single product
       } catch (err) {
         Promise.reject(err)
       } finally {

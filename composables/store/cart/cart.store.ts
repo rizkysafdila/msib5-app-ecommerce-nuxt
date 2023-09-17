@@ -41,12 +41,19 @@ export const useCartStore = defineStore('cart', {
       const newCartProduct = { productId: id, quantity: qty }
 
       try {
+        const productStore = useProductStore()
+
         await useNuxtApp().$axios.post('/carts', {
           userId: 1,
           date: Date.now(),
           products: newCartProduct
         })
         this.carts.products = [newCartProduct, ...this.carts.products]
+        // const cartProductDetails = productStore.products
+        //   .map(product => product)
+        //   .filter(product => product.id == newCartProduct.productId)
+        // this.cartProducts = [...cartProductDetails, ...this.cartProducts]
+        this.cartProducts = this.CART_PRODUCT_DETAILS().reverse()
       } catch (err) {
         Promise.reject(err)
       } finally {
@@ -84,6 +91,9 @@ export const useCartStore = defineStore('cart', {
 
     REMOVE_PRODUCT(id: number) {
       try {
+        this.carts.products = this.carts.products.filter(
+          (product: any) => product.productId !== id
+        )
         this.cartProducts = this.cartProducts.filter(
           product => product.id !== id
         )
@@ -91,8 +101,8 @@ export const useCartStore = defineStore('cart', {
         return Promise.reject(err)
       }
     }
+  },
+  persist: {
+    paths: ['carts', 'cartProducts']
   }
-  // persist: {
-  //   paths: ['carts', 'cartProducts']
-  // }
 })
