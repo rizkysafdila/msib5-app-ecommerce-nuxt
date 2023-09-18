@@ -4,6 +4,12 @@ defineProps<{
 }>()
 
 const cartStore = useCartStore()
+
+const showDropdown = ref<boolean>(false)
+
+const toggleDropdown = () => {
+  showDropdown.value = !showDropdown.value
+}
 </script>
 
 <template>
@@ -48,7 +54,7 @@ const cartStore = useCartStore()
       </div>
       <div class="flex md:order-2">
         <div
-          class="flex justify-center items-center gap-6"
+          class="relative flex justify-center items-center gap-6"
           :class="{ hidden: !isAuthenticated }"
         >
           <router-link to="/checkout" class="flex relative">
@@ -63,10 +69,27 @@ const cartStore = useCartStore()
           </router-link>
           <button
             type="button"
+            @click="toggleDropdown"
             class="flex justify-center items-center w-10 h-10 text-sm bg-gray-300 rounded-full focus:ring-4 focus:ring-gray-300"
           >
             <NuxtImg class="rounded-full" src="/avatar.png" alt="user photo" />
           </button>
+          <div
+            class="z-10 absolute top-12 right-0 bg-white divide-y divide-gray-100 rounded-lg shadow w-48"
+            :class="{ hidden: !showDropdown }"
+          >
+            <div class="px-4 py-3 text-sm text-gray-900">
+              <div>Olivia Rhye</div>
+              <div class="font-medium truncate">oliviaryhe@gmail.com</div>
+            </div>
+            <div class="py-2">
+              <button
+                class="w-full flex px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
         <div class="flex gap-3" :class="{ hidden: isAuthenticated }">
           <router-link

@@ -38,11 +38,11 @@ export const useCartStore = defineStore('cart', {
     async addToCart(id: number, qty: number) {
       this.isLoading = true
 
+      // this.carts.products.filter((product: any) => product.productId === id)
+
       const newCartProduct = { productId: id, quantity: qty }
 
       try {
-        const productStore = useProductStore()
-
         await useNuxtApp().$axios.post('/carts', {
           userId: 1,
           date: Date.now(),
